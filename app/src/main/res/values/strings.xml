@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Recipes</string>
+    <string name="mock_recipe_name">Nutella Pie</string>
+    <string name="mock_recipe_servings">Servings: 7</string>
+    <string name="mock_recipe_ingredients">Ingredients: 6</string>
+    <string name="mock_recipe_steps">Steps: 9</string>
+    <string name="mock_ingredient">Graham Cracker crumbs</string>
+    <string name="mock_measure">CUP</string>
+    <string name="mock_quantity">2</string>
+    <string name="title_ingredients">Ingredients</string>
+    <string name="title_steps">Steps</string>
+    <string name="mock_description">1. Preheat the oven to 350\u00b0F. Butter a 9\" deep dish pie pan.</string>
+    <string name="title_button_next">Next step</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="configure_widget">Choose a recipe</string>
+    <string name="empty_widget">Empty recipe</string>
+</resources>

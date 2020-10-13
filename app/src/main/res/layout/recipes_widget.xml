@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_step"
+    android:layout_marginStart="3dp"
+    >
+
+    <TextView
+        android:id="@+id/name_recipe_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        />
+
+    <ListView
+        android:id="@+id/stack_view_widget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+    </ListView>
+
+</LinearLayout>

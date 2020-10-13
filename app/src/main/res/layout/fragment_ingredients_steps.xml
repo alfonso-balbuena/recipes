@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".activity.RecipeDetailActivity">
+
+    <TextView
+        android:text="@string/title_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:background="@color/bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:paddingStart="8dp"
+        android:paddingBottom="5dp"
+        />
+
+    <FrameLayout
+        android:background="@color/bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <TextView
+        android:text="@string/title_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:background="@color/bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_steps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        />
+
+</LinearLayout>

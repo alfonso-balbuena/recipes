@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.StepDetailActivity">
+
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/player_video_step"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        app:show_buffering="always"
+        />
+    <TextView
+        android:layout_margin="5dp"
+        android:id="@+id/tv_all_description_step"
+        android:layout_weight="5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <Button
+        android:id="@+id/btn_next_step"
+        android:text="@string/title_button_next"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+</LinearLayout>
