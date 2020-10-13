@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ public class StepDetailActivity extends AppCompatActivity {
     private MediaSessionCompat mMediaSession = null;
     private PlaybackStateCompat.Builder mStateBuilder = null;
     private final String TAG = StepDetailActivity.class.getSimpleName();
+    private final String POSITION_KEY = "position";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,11 @@ public class StepDetailActivity extends AppCompatActivity {
         initSession();
         initExoPlayer();
         loadCurrentData();
+        if(savedInstanceState != null) {
+            Log.d(TAG, savedInstanceState.toString());
+            Log.d(TAG,savedInstanceState.getLong(POSITION_KEY,-1) + "");
+            mExoPlayer.seekTo(savedInstanceState.getLong(POSITION_KEY,-1));
+        }
         Button btnNext = findViewById(R.id.btn_next_step);
         btnNext.setOnClickListener(view -> {
             next();
@@ -95,6 +103,18 @@ public class StepDetailActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mExoPlayer.pause();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.d(TAG,mExoPlayer.getCurrentPosition() + " ");
+        outState.putLong(POSITION_KEY,mExoPlayer.getContentPosition());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void releasePlayer(){
