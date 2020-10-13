@@ -12,16 +12,15 @@ import android.view.MenuItem;
 
 import com.alfonso.recipes.MainActivity;
 import com.alfonso.recipes.R;
+import com.alfonso.recipes.RecipeApplication;
 import com.alfonso.recipes.models.Step;
 import com.alfonso.recipes.viewModel.RecipeDetailViewModel;
+import com.alfonso.recipes.viewModel.factory.RecipeDetailViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class RecipeDetailActivity extends AppCompatActivity {
     public final static String STEP_SELECTED = "step_selected";
     public final static String LIST_STEP = "list_step";
@@ -41,7 +40,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             id = intent.getIntExtra(MainActivity.RECIPE_ID,-1);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(name);
-            viewModel = new ViewModelProvider(this).get(RecipeDetailViewModel.class);
+            viewModel = new ViewModelProvider(this,new RecipeDetailViewModelFactory(((RecipeApplication)getApplication()).repository)).get(RecipeDetailViewModel.class);
             viewModel.setRecipeId(id);
             viewModel.getSteps().observe(this, stepsList -> {
                 steps.set(stepsList);
