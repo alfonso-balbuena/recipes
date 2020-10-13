@@ -14,12 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alfonso.recipes.R;
+import com.alfonso.recipes.RecipeApplication;
 import com.alfonso.recipes.adapter.RecipesAdapter;
 import com.alfonso.recipes.viewModel.ListRecipesViewModel;
+import com.alfonso.recipes.viewModel.factory.ListRecipeViewModelFactory;
+import com.alfonso.recipes.viewModel.factory.RecipeDetailViewModelFactory;
 
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class ListRecipesFragment extends Fragment {
 
     private ListRecipesViewModel viewModel;
@@ -40,7 +40,7 @@ public class ListRecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        viewModel = new ViewModelProvider(requireActivity()).get(ListRecipesViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(),new ListRecipeViewModelFactory(((RecipeApplication)requireActivity().getApplication()).repository)).get(ListRecipesViewModel.class);
         View view = inflater.inflate(R.layout.fragment_list_recipes, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.rv_recipes);
         adapter = new RecipesAdapter(model -> viewModel.select(model));

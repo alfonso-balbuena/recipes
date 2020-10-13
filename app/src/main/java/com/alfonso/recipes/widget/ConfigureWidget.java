@@ -9,12 +9,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.alfonso.recipes.R;
+import com.alfonso.recipes.RecipeApplication;
 import com.alfonso.recipes.models.Recipe;
 import com.alfonso.recipes.viewModel.ListRecipesViewModel;
+import com.alfonso.recipes.viewModel.factory.ListRecipeViewModelFactory;
 
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class ConfigureWidget extends AppCompatActivity {
 
     private ListRecipesViewModel viewModel;
@@ -29,7 +28,7 @@ public class ConfigureWidget extends AppCompatActivity {
         setResult(RESULT_CANCELED);
         setContentView(R.layout.activity_configure_widget);
         setTitle(getString(R.string.configure_widget));
-        viewModel = new ViewModelProvider(this).get(ListRecipesViewModel.class);
+        viewModel = new ViewModelProvider(this,new ListRecipeViewModelFactory(((RecipeApplication)getApplication()).repository)).get(ListRecipesViewModel.class);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if(extras != null) {

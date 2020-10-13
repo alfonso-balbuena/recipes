@@ -15,9 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import dagger.hilt.android.testing.HiltAndroidRule;
-import dagger.hilt.android.testing.HiltAndroidTest;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -31,13 +28,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 
-@HiltAndroidTest
+
 @RunWith(AndroidJUnit4.class)
 public class MainActivityInstrumentedTest {
 
     @Rule(order = 0)
-    public HiltAndroidRule rule = new HiltAndroidRule(this);
-    @Rule(order = 1)
     public ActivityScenarioRule ruleActivity = new ActivityScenarioRule(MainActivity.class);
 
 

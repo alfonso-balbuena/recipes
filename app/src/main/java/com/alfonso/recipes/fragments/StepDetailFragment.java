@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alfonso.recipes.R;
+import com.alfonso.recipes.RecipeApplication;
 import com.alfonso.recipes.models.Step;
 import com.alfonso.recipes.utils.MediaUtils;
 import com.alfonso.recipes.viewModel.RecipeDetailViewModel;
+import com.alfonso.recipes.viewModel.factory.RecipeDetailViewModelFactory;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
@@ -44,7 +46,7 @@ public class StepDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_step_detail, container, false);
         initMedia(view);
-        viewModel = new ViewModelProvider(requireActivity()).get(RecipeDetailViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(), new RecipeDetailViewModelFactory(((RecipeApplication)requireActivity().getApplication()).repository)).get(RecipeDetailViewModel.class);
         viewModel.getSelected().observe(getViewLifecycleOwner(), step -> loadData(step,view));
         return view;
     }

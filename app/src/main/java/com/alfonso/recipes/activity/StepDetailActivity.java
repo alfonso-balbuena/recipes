@@ -48,8 +48,6 @@ public class StepDetailActivity extends AppCompatActivity {
         initExoPlayer();
         loadCurrentData();
         if(savedInstanceState != null) {
-            Log.d(TAG, savedInstanceState.toString());
-            Log.d(TAG,savedInstanceState.getLong(POSITION_KEY,-1) + "");
             mExoPlayer.seekTo(savedInstanceState.getLong(POSITION_KEY,-1));
         }
         Button btnNext = findViewById(R.id.btn_next_step);
@@ -107,7 +105,6 @@ public class StepDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.d(TAG,mExoPlayer.getCurrentPosition() + " ");
         outState.putLong(POSITION_KEY,mExoPlayer.getContentPosition());
         super.onSaveInstanceState(outState);
     }

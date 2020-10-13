@@ -13,10 +13,7 @@ import com.alfonso.recipes.models.Recipe;
 import com.alfonso.recipes.models.RecipeResponse;
 import com.alfonso.recipes.models.Step;
 import com.alfonso.recipes.web.services.RecipesService;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
-import dagger.hilt.android.qualifiers.ApplicationContext;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +25,6 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
-@Singleton
 public class RecipeRepository implements IRecipeRepository {
     private final Context context;
     private final RecipesService recipesService;
@@ -37,8 +33,7 @@ public class RecipeRepository implements IRecipeRepository {
     private final AppDataBase dataBase;
     private MutableLiveData<List<Recipe>> recipes;
 
-    @Inject
-    public RecipeRepository(@ApplicationContext Context context, RecipesService service, AppDataBase dataBase) {
+    public RecipeRepository(Context context, RecipesService service, AppDataBase dataBase) {
         recipesService = service;
         this.context = context;
         this.dataBase = dataBase;
