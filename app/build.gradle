@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 30
@@ -15,7 +14,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.alfonso.recipes.CustomTestRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -29,14 +28,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    hilt {
-        enableTransformForLocalTests = true
-    }
 }
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    def hilt_version = "2.29-alpha"
+
     def room_version = "2.2.5"
     def espresso_version = "3.3.0"
     def retrofit_version = "2.9.0"
@@ -44,11 +40,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0'
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc02'
     implementation "androidx.cardview:cardview:1.0.0"
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    implementation "androidx.fragment:fragment:1.2.5"
     //Exoplayer
     implementation 'com.google.android.exoplayer:exoplayer:2.12.0'
     //Retrofit
@@ -59,12 +54,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
-    //Hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    annotationProcessor "com.google.dagger:hilt-android-compiler:$hilt_version"
-    testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    androidTestAnnotationProcessor "com.google.dagger:hilt-android-compiler:$hilt_version"
     //Espresso
     implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
@@ -73,6 +62,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
     //Test
     testImplementation 'junit:junit:4.13'
+    implementation "androidx.test:core:1.3.0"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'com.android.support:support-annotations:28.0.0'
     androidTestImplementation 'androidx.test:runner:1.3.0'

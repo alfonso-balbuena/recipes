@@ -1,7 +1,5 @@
 package com.alfonso.recipes.viewModel;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
@@ -12,22 +10,15 @@ import com.alfonso.recipes.repository.IRecipeRepository;
 
 import java.util.List;
 
-import dagger.hilt.android.scopes.ActivityRetainedScoped;
-
-
-@ActivityRetainedScoped
 public class ListRecipesViewModel extends ViewModel {
     private final String TAG = ListRecipesViewModel.class.getSimpleName();
 
     private final IRecipeRepository repository;
-    private final SavedStateHandle savedStateHandle;
     private final LiveData<List<Recipe>> recipes;
     private final MutableLiveData<Recipe> recipeSelected;
 
-    @ViewModelInject
-    public ListRecipesViewModel(IRecipeRepository repository, @Assisted SavedStateHandle savedStateHandle) {
+    public ListRecipesViewModel(IRecipeRepository repository) {
         this.repository = repository;
-        this.savedStateHandle = savedStateHandle;
         recipeSelected = new MutableLiveData<>();
         recipes = this.repository.getRecipes();
     }

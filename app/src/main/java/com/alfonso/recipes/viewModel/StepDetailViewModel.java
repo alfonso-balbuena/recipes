@@ -1,8 +1,5 @@
 package com.alfonso.recipes.viewModel;
 
-import androidx.hilt.Assisted;
-import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.alfonso.recipes.models.Step;
@@ -12,11 +9,8 @@ import java.util.List;
 public class StepDetailViewModel extends ViewModel {
     private Step currentStep;
     private List<Step> listSteps;
-    private final SavedStateHandle savedStateHandle;
 
-    @ViewModelInject
-    public StepDetailViewModel(@Assisted SavedStateHandle savedStateHandle) {
-        this.savedStateHandle = savedStateHandle;
+    public StepDetailViewModel() {
     }
 
 

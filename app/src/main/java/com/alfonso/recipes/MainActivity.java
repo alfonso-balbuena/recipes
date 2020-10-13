@@ -3,15 +3,14 @@ package com.alfonso.recipes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.alfonso.recipes.activity.RecipeDetailActivity;
 import com.alfonso.recipes.viewModel.ListRecipesViewModel;
+import com.alfonso.recipes.viewModel.factory.ListRecipeViewModelFactory;
 
-import dagger.hilt.android.AndroidEntryPoint;
-
-@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
     private ListRecipesViewModel viewModel;
@@ -22,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = new ViewModelProvider(this).get(ListRecipesViewModel.class);
-
+        viewModel = new ViewModelProvider(this,new ListRecipeViewModelFactory(((RecipeApplication)getApplication()).repository)).get(ListRecipesViewModel.class);
         viewModel.getSelected().observe(this, recipe -> {
             Intent detail = new Intent(this, RecipeDetailActivity.class);
             detail.putExtra(RECIPE_ID,recipe.getId());

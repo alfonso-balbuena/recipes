@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alfonso.recipes.R;
+import com.alfonso.recipes.RecipeApplication;
 import com.alfonso.recipes.adapter.IngredientsAdapter;
 import com.alfonso.recipes.adapter.StepsAdapter;
 import com.alfonso.recipes.viewModel.RecipeDetailViewModel;
+import com.alfonso.recipes.viewModel.factory.RecipeDetailViewModelFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +44,7 @@ public class IngredientsStepsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ingredients_steps, container, false);
         Log.d(IngredientsStepsFragment.class.getName(),"OnCreateView");
         ingredientsAdapter = new IngredientsAdapter();
-        viewModel = new ViewModelProvider(requireActivity()).get(RecipeDetailViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(),new RecipeDetailViewModelFactory(((RecipeApplication)requireActivity().getApplication()).repository)).get(RecipeDetailViewModel.class);
         initRecyclerViews(view);
         viewModel.getIngredients().observe(getViewLifecycleOwner(), ingredients -> ingredientsAdapter.setIngredientList(ingredients));
         viewModel.getSteps().observe(getViewLifecycleOwner(),steps -> stepsAdapter.setStepList(steps));
