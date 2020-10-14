@@ -63,7 +63,6 @@ public class IngredientsStepsFragment extends Fragment {
             StepsAdapter.StepsAdapterViewHolder viewHolder =  (StepsAdapter.StepsAdapterViewHolder)rvSteps.findViewHolderForAdapterPosition(model.getNumberStep());
             viewHolder.select();
             if(previous >= 0) {
-                Log.d("FRAGMENT","Unselect");
                 viewHolder =  (StepsAdapter.StepsAdapterViewHolder)rvSteps.findViewHolderForAdapterPosition(previous);
                 viewHolder.unSelect();
             }

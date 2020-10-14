@@ -9,8 +9,9 @@ import java.util.List;
 public class StepDetailViewModel extends ViewModel {
     private Step currentStep;
     private List<Step> listSteps;
-
+    private Long positionVideo;
     public StepDetailViewModel() {
+        positionVideo = 0L;
     }
 
 
@@ -39,5 +40,13 @@ public class StepDetailViewModel extends ViewModel {
 
     public boolean isLast() {
         return currentStep.getNumberStep() == (listSteps.size() - 1);
+    }
+
+    public Long getPositionVideo() {
+        return positionVideo;
+    }
+
+    public void setPositionVideo(Long positionVideo) {
+        this.positionVideo = positionVideo;
     }
 }

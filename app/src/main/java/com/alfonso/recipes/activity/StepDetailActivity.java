@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,32 +26,40 @@ public class StepDetailActivity extends AppCompatActivity {
     private PlaybackStateCompat.Builder mStateBuilder = null;
     private final String TAG = StepDetailActivity.class.getSimpleName();
     private final String POSITION_KEY = "position";
-
+    private Long position = 0L;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_detail);
         Intent intent = getIntent();
         viewModel = new ViewModelProvider(this).get(StepDetailViewModel.class);
+
         if (intent.hasExtra(RecipeDetailActivity.LIST_STEP) && savedInstanceState == null) {
             viewModel.setCurrentStep(intent.getParcelableExtra(RecipeDetailActivity.STEP_SELECTED));
             viewModel.setListSteps(intent.getParcelableArrayListExtra(RecipeDetailActivity.LIST_STEP));
-
         }
+
         if(intent.hasExtra(RecipeDetailActivity.RECIPE_NAME)) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(intent.getStringExtra(RecipeDetailActivity.RECIPE_NAME));
         }
-        initSession();
-        initExoPlayer();
         loadCurrentData();
         if(savedInstanceState != null) {
-            mExoPlayer.seekTo(savedInstanceState.getLong(POSITION_KEY,-1));
+            position = viewModel.getPositionVideo();
         }
         Button btnNext = findViewById(R.id.btn_next_step);
         btnNext.setOnClickListener(view -> {
             next();
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initSession();
+        initExoPlayer();
+        changeVideo();
+        mExoPlayer.seekTo(position);
     }
 
     @Override
@@ -103,35 +109,27 @@ public class StepDetailActivity extends AppCompatActivity {
         mExoPlayer.pause();
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putLong(POSITION_KEY,mExoPlayer.getContentPosition());
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     private void releasePlayer(){
+        viewModel.setPositionVideo(mExoPlayer.getContentPosition());
         mExoPlayer.stop();
         mExoPlayer.release();
         mExoPlayer = null;
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         mMediaSession.setActive(false);
         releasePlayer();
     }
 
     private void changeVideo() {
-        String url = viewModel.getCurrentStep().getVideoURLToExoPlayer();
-        mExoPlayer.setMediaItem(MediaItem.fromUri(url),0);
-        mExoPlayer.prepare();
-        mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING,mExoPlayer.getContentPosition(),1f);
+        if(mExoPlayer != null) {
+            String url = viewModel.getCurrentStep().getVideoURLToExoPlayer();
+            mExoPlayer.setMediaItem(MediaItem.fromUri(url),0);
+            mExoPlayer.prepare();
+            mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING,mExoPlayer.getContentPosition(),1f);
+        }
     }
 
     private void next() {
